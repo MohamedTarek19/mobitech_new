@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string name="app_name">mobitech</string>
+    <string name="facebook_app_id">688566756362140</string>
+    <!--<string name="fb_login_protocol_scheme">fbfe5b944da43358884b77fde33f0d70f0</string>-->
+    <string name="fb_login_protocol_scheme">fb688566756362140</string>
+    <string name="facebook_client_token">4e048152e2a85037c0bbacc1f3bf28ff</string>
+</resources>
