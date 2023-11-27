@@ -20,7 +20,7 @@ class EmpMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainContainer(
         widget: Scaffold(
-      appBar: CustomAbbBar("الموظفين", context),
+      appBar: CustomAppBar("الموظفين", context),
       body: SingleChildScrollView(
         child: Column(children: [
           Row(

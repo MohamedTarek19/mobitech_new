@@ -56,7 +56,7 @@ class _StolenAddState extends State<StolenAdd> {
     final formK = GlobalKey<FormState>();
     return MainContainer(
         widget: Scaffold(
-      appBar: CustomAbbBar( "تبليغ عن جهاز مفقود", context),
+      appBar: CustomAppBar( "تبليغ عن جهاز مفقود", context),
       body: Form(
         key: formK,
         child: SingleChildScrollView(

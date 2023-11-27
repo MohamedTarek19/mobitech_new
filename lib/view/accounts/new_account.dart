@@ -96,7 +96,6 @@ class _RegisterationState extends State<Registeration> {
                                   pass: password.text,
                                   aname: userName.text,
                                   atel: phone.text,
-                                  id: 0,
                                   aface: '',
                                   agoogle: ''));
                           if (statusCode == 201) {}
@@ -105,7 +104,7 @@ class _RegisterationState extends State<Registeration> {
                           print(err);
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text(
-                            "Something err",
+                            "$err",
                           )));
                         }
                       } else {

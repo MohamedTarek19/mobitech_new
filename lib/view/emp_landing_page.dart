@@ -9,8 +9,8 @@ import 'package:mobitech/widgets/cuttom_appbar.dart';
 import 'package:mobitech/widgets/main_container.dart';
 import 'package:mobitech/widgets/text_button.dart';
 import 'package:provider/provider.dart';
-import 'package:mobitech/view/accounts/logingoogle.dart';
-import 'package:mobitech/view/accounts/google_signin_api.dart';
+
+import 'package:mobitech/view/accounts/test_google_signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../theme/appthrmr.dart';
 import 'home/homeemp.dart';

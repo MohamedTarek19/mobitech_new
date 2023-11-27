@@ -1,5 +1,5 @@
 class Apis {
-  static const String baseUrl = "http://apimobi.sbttec.com/api/";
+  static const String baseUrl = "http://41.32.2.80:8080/graphql";
 
   ///account manageMent
   static const String accountmes = "accountmes";

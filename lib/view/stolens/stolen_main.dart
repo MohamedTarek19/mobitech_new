@@ -16,7 +16,7 @@ const StolenMain({Key? key}) : super(key: key);
   Widget build(BuildContext context) {
 
     return MainContainer(widget: Scaffold(
-      appBar:  CustomAbbBar("اجهزة مسروقة", context),
+      appBar:  CustomAppBar("اجهزة مسروقة", context),
       body:  SingleChildScrollView(
         child: Column(mainAxisAlignment: MainAxisAlignment.center,
         

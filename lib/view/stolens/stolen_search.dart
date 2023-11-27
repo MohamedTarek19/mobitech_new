@@ -31,7 +31,7 @@ class _LostSearchState extends State<LostSearch> {
     final formK = GlobalKey<FormState>();
     return MainContainer(
         widget: Scaffold(
-      appBar: CustomAbbBar("بحث عن جهاز مسروق", context),
+      appBar: CustomAppBar("بحث عن جهاز مسروق", context),
       body: Form(
         key: formK,
         child: Column(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobitech/business_logic/view_model/maints_vm.dart';
+import 'package:mobitech/business_logic/view_model/maintenance_vm.dart';
 import 'package:mobitech/theme/appthrmr.dart';
 import 'package:mobitech/utils/navigation.dart';
 import 'package:mobitech/view/maintance/mainance_details.dart';
@@ -20,14 +21,17 @@ class MaintanceSearch extends StatefulWidget {
 }
 
 class _MaintanceSearchState extends State<MaintanceSearch> {
+
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
-    var maints_Vm = Provider.of<MaintsVM>(context);
+    var maints_Vm = Provider.of<MaintenanceVM>(context);
     TextEditingController mid = TextEditingController();
     final formK = GlobalKey<FormState>();
     return MainContainer(
         widget: Scaffold(
-      appBar: CustomAbbBar("إستعلام عن جهاز صيانة", context),
+      appBar: CustomAppBar("إستعلام عن جهاز صيانة", context),
       body: Form(
         key: formK,
         child: Column(
@@ -62,10 +66,17 @@ class _MaintanceSearchState extends State<MaintanceSearch> {
             ),
             CustomBtn(
                 name: "بحث",
+                isLoading: loading,
                 action: () async {
                   if (formK.currentState!.validate()) {
+                    setState(() {
+                      loading = true;
+                    });
                     await maints_Vm.getMaintsById(int.parse(mid.text));
-                    if (maints_Vm.maintsM == null) {
+                    if (maints_Vm.maints == null) {
+                      setState((){
+                        loading = false;
+                      });
                       if (!mounted) {
                         return;
                       }
@@ -76,6 +87,9 @@ class _MaintanceSearchState extends State<MaintanceSearch> {
                       if (!mounted) {
                         return;
                       }
+                      setState((){
+                        loading = false;
+                      });
                       Navigation.puchNav(const MaintSearchResult(), context);
                     }
                   }

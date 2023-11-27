@@ -14,7 +14,7 @@ class JobsMain extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MainContainer(widget: Scaffold(
-      appBar:  CustomAbbBar("طلب وظيفة", context),
+      appBar:  CustomAppBar("طلب وظيفة", context),
       body:  SingleChildScrollView(
         child: Column(mainAxisAlignment: MainAxisAlignment.center,
         

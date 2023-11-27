@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
 
                   ServiceWidget(
                     imahePath: "assets/search.png",
-                    name: "إستعلام صيانة",
+                    name: "إستعلام عن صيانة",
                     action: (){
                         Navigation.puchNav(const MaintanceSearch(), context);
 
@@ -61,7 +61,7 @@ class HomeScreen extends StatelessWidget {
 
                   ServiceWidget(
                     imahePath: "assets/mobile.png",
-                    name: "اجهزة مسروقة",
+                    name: "  اجهزة مسروقة",
                     action: () {
                        Navigation.puchNav(const StolenMain(), context);
                        },
@@ -86,12 +86,9 @@ class HomeScreen extends StatelessWidget {
                        Navigation.puchNav(const StoreDetails(), context);
                     },
                   ),
-                  ServiceWidget(
-                    imahePath: "assets/jobs.png",
-                    name: "التوظيف",
-                    action: (){
-                      Navigation.puchNav(const JobsMain(), context);
-                    },
+                  const ServiceWidget(
+                    imahePath: "assets/sale.png",
+                    name: "عروض ",
                   ),
                 ],
               ),

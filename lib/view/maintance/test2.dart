@@ -4,9 +4,7 @@ import 'package:mobitech/business_logic/view_model/typesets_vm.dart';
 import 'package:mobitech/theme/appthrmr.dart';
 import 'package:mobitech/utils/navigation.dart';
 import 'package:mobitech/view/maintance/mainance_details.dart';
-import 'package:mobitech/view/maintance/maintain_form/alert.dart';
-import 'package:mobitech/view/maintance/maintain_form/in_home_form/in_home_data.dart';
-import 'package:mobitech/view/maintance/maintain_form/mobile_form/mobile_data.dart';
+
 import 'package:mobitech/widgets/custom_button.dart';
 import 'package:mobitech/widgets/cuttom_appbar.dart';
 import 'package:mobitech/widgets/main_container.dart';
@@ -40,7 +38,7 @@ class _MaintanceTest2State extends State<MaintanceTest2> {
       textDirection: TextDirection.rtl,
       child: MainContainer(
           widget: Scaffold(
-        appBar: CustomAbbBar("طلب صيانة اجهزة", context),
+        appBar: CustomAppBar("طلب صيانة اجهزة", context),
         body: Form(
           key: formK,
           child: Column(
@@ -123,7 +121,7 @@ class _MaintanceTest2State extends State<MaintanceTest2> {
                           //Navigation.puchNav(PersonalData(), context);
                         await typesets_vm.getTypeSets();
                         Navigator.of(context).pop();
-                        Navigation.puchNav(Alertclass(), context);
+
                       }),
                 ),
               )

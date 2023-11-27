@@ -51,10 +51,11 @@ dependencies:
   external_app_launcher: ^3.1.0
   image_picker: ^0.8.7+4
   geolocator: ^9.0.2
+  geocoding: ^2.1.1
+  yandex_geocoder: ^2.1.0
   google_maps_flutter: ^2.2.6
-  flutter_local_notifications: ^14.0.0+2
-  workmanager: ^0.5.1
-  flutter_background_service: ^2.4.6
+  lottie:
+  graphql_flutter: ^5.1.2
   #flutter_facebook_login: ^1.1.1
 
 flutter_icons:

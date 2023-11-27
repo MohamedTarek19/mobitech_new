@@ -38,13 +38,13 @@ class AccountVM extends ChangeNotifier{
   }
 
   Future<dynamic> CreateAccount(AccountM accoutM)async{
-    var result= await accountRep.CreateAccount(accoutM);
+    var result= await accountRep.createAccount(accoutM);
     return result;
   }
 
-  Future<AccountM?> login(String userName)async{
+  Future<AccountM?> login(String email)async{
 
-    var result= await accountRep.login(userName);
+    var result= await accountRep.login(email);
     return result;
   }
 

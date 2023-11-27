@@ -18,7 +18,7 @@ class AboutUs extends StatelessWidget {
 
     return MainContainer(
       widget: Scaffold(
-        appBar: CustomAbbBar("عن الشركة", context),
+        appBar: CustomAppBar("عن الشركة", context),
         body: Column(
           children: [
             x == Orientation.portrait

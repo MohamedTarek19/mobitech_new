@@ -21,7 +21,7 @@ class JobSearchResult extends StatelessWidget {
 
     return MainContainer(
       widget: Scaffold(
-        appBar: CustomAbbBar("نتا~ج البحث", context),
+        appBar: CustomAppBar("نتا~ج البحث", context),
         body: FutureBuilder<List<JobSubject>?>(future: jobsVm_Vm.getJobsByName(jobsVm_Vm.searchValue??""),builder: (context, snapshot) {
          
          if(snapshot.hasError){

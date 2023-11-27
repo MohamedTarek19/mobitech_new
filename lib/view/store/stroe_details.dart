@@ -18,7 +18,7 @@ class StoreDetails extends StatelessWidget {
 
     return MainContainer(
       widget: Scaffold(
-        appBar: CustomAbbBar("المتاجر", context),
+        appBar: CustomAppBar("المتاجر", context),
         body: Column(
            children: [
         x==Orientation.portrait?     const SizedBox(

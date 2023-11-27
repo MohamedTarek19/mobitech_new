@@ -9,6 +9,7 @@ import 'package:mobitech/view/emp_landing_page.dart';
 import 'package:mobitech/view/landing_page.dart';
 import 'package:mobitech/view/maintance/mhelper.dart';
 import 'package:mobitech/view/maintance/test2.dart';
+import 'package:mobitech/view/maintenance2/miantenance_selection.dart';
 import 'package:mobitech/view/tips/page_tips.dart';
 import 'package:mobitech/widgets/custom_button.dart';
 import 'package:mobitech/widgets/main_container.dart';
@@ -44,26 +45,6 @@ class _MaintTipsState extends State<MaintTips> {
             description: "اطلب خدمتك لتصل إلى منزلك وادفع عبر الانترنت و استمتع")),
   ];
   PageController pageController = PageController();
-  checkSocialLogin(BuildContext context,var _acountVm) async{
-    var _prefs =await sharedPreferences;
-
-    String user = await _prefs.getString('user')?? '0';
-    print(user);
-    var userM = await _acountVm.login(user);
-    String email = await _prefs.getString('email')?? '';
-    print(email);
-    String acctype =await _prefs.getString('account_type')??'';
-    print(acctype);
-    if(userM != null && user != '0'){
-      if(email == userM.agoogle || email == userM.aface){
-        print('#########################################\nlanding');
-        Navigation.puchReplace(const LandingPage(), context);
-      }else{Navigation.puchReplace(const LoginScreen(), context);}
-
-    }else{
-      Navigation.puchReplace(const LoginScreen(), context);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +63,7 @@ class _MaintTipsState extends State<MaintTips> {
                         child: TextBtn(
                             text: "تخطي",
                             action: () {
-                              Navigation.puchReplace(MaintanceTest2(), context);
+                              Navigation.puchReplace(MaintenanceSelection(), context);
                             }),
                       ),
                       Align(
@@ -161,7 +142,7 @@ class _MaintTipsState extends State<MaintTips> {
                           child: CustomBtn(
                               name: "بدا",
                               action: () {
-                                Navigation.puchReplace(MaintanceTest2(), context);
+                                Navigation.puchReplace(MaintenanceSelection(), context);
                               }))
                           : Expanded(child: Container()),
                       currentIndex == 2

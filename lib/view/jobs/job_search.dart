@@ -50,7 +50,7 @@ class _JobSearchState extends State<JobSearch> {
     final formK = GlobalKey<FormState>();
     return MainContainer(
         widget: Scaffold(
-      appBar: CustomAbbBar("الوظائف", context),
+      appBar: CustomAppBar("الوظائف", context),
       body: SingleChildScrollView(
         child: Form(
           key: formK,

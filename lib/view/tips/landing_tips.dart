@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
+
 import 'package:mobitech/business_logic/model/tips.dart';
 import 'package:mobitech/business_logic/view_model/account_vm.dart';
 import 'package:mobitech/business_logic/view_model/work_orders_vm.dart';
 import 'package:mobitech/data_layer/localdata/localdata.dart';
 import 'package:mobitech/theme/appthrmr.dart';
+import 'package:mobitech/utils.dart';
 import 'package:mobitech/utils/navigation.dart';
 import 'package:mobitech/view/accounts/login.dart';
 import 'package:mobitech/view/emp_landing_page.dart';
 import 'package:mobitech/view/landing_page.dart';
 import 'package:mobitech/view/maintance/mhelper.dart';
-import 'package:mobitech/view/maintance/test2.dart';
-import 'package:mobitech/view/notify/status_updater.dart';
+
 import 'package:mobitech/view/tips/page_tips.dart';
 import 'package:mobitech/widgets/custom_button.dart';
 import 'package:mobitech/widgets/main_container.dart';
@@ -27,8 +27,6 @@ class LandingTips extends StatefulWidget {
 }
 
 class _LandingTipsState extends State<LandingTips> {
-  var service = FlutterBackgroundService();
-
   int currentIndex = 0;
   var tips = [
     PageTips(
@@ -49,52 +47,44 @@ class _LandingTipsState extends State<LandingTips> {
             description: "احصل على توصيل المنتج وادفع عبر الانترنت و استمتع")),
   ];
   PageController pageController = PageController();
-  checkSocialLogin(BuildContext context,AccountVM _acountVm) async{
-    var service = FlutterBackgroundService();
-
-    final _workOrdersVm = Provider.of<WorkOrdersVM>(context, listen: false);
-    showDialog(context: context, builder: (context){
-      return const Center(child: CircularProgressIndicator());
-    });
-    var _prefs =await sharedPreferences;
-    String user = await _prefs.getString('user')?? '0';
-    print(user);
-    var userM = await _acountVm.login(user);
-    String email = await _prefs.getString('email')?? '';
-    print(email);
-    String acctype =await _prefs.getString('account_type')??'';
-    print(acctype);
-    if(userM != null && user != '0'){
-      String name = userM.aname??'';
-      print(name);
-      if(email == userM.agoogle || email == userM.aface || name.toLowerCase() == user){
-        await _prefs.setString("Userid", userM.id.toString());
-        print(_prefs.getString("Userid"));
-        print('#########################################\nlanding');
-        await StatusUtils.SaveStatusList(_workOrdersVm, _prefs);
-        print(_workOrdersVm.orders?.length??0);
-        StatusUtils.inLanding = true;
-        service.startService();
-
-        Navigation.puchReplace(const LandingPage(), context);
-      }else{
-        // service.invoke("stopService");
-        await _prefs.clear();
-        Navigator.of(context).pop();
-        Navigation.puchReplace(const LoginScreen(), context);}
-    }else{
-      service.invoke("stopService");
-      Navigator.of(context).pop();
-      print("is cleared = ${await _prefs.clear()}");
-      Navigation.puchReplace(const LoginScreen(), context);
-    }
-
-  }
+  // checkSocialLogin(BuildContext context,AccountVM _acountVm) async{
+  //   showDialog(context: context, builder: (context){
+  //     return const Center(child: CircularProgressIndicator());
+  //   });
+  //   var _prefs =await sharedPreferences;
+  //   String user = await _prefs.getString('user')?? '0';
+  //   print(user);
+  //   var userM = await _acountVm.login(user);
+  //   String email = await _prefs.getString('email')?? '';
+  //   print(email);
+  //   String acctype =await _prefs.getString('account_type')??'';
+  //   print(acctype);
+  //   if(userM != null && user != '0'){
+  //     String name = userM.aname??'';
+  //     print(name);
+  //     if(email == userM.agoogle || email == userM.aface || name.toLowerCase() == user){
+  //       await _prefs.setString("Userid", userM.id.toString());
+  //       print(_prefs.getString("Userid"));
+  //       print('#########################################\nlanding');
+  //
+  //       Navigation.puchReplace(const LandingPage(), context);
+  //     }else{
+  //       // service.invoke("stopService");
+  //       await _prefs.clear();
+  //       Navigator.of(context).pop();
+  //       Navigation.puchReplace(const LoginScreen(), context);}
+  //   }else{
+  //     Navigator.of(context).pop();
+  //     print("is cleared = ${await _prefs.clear()}");
+  //     Navigation.puchReplace(const LoginScreen(), context);
+  //   }
+  //
+  // }
 
   @override
   Widget build(BuildContext context) {
     // "stopService"
-    service.invoke("stopService");
+
     final _acountVm = Provider.of<AccountVM>(context, listen: false);
     return MainContainer(
         padding: AppTheme.paddingall,
@@ -109,6 +99,9 @@ class _LandingTipsState extends State<LandingTips> {
                     action: () {
                       // SavedLocalData savedLocalData = SavedLocalData();
                       // savedLocalData.setTipsViewed(false);
+
+                      //Navigation.puchReplace(const LandingPage(), context);
+
                       checkSocialLogin(context,_acountVm);
                     }),
               ),
@@ -172,7 +165,8 @@ class _LandingTipsState extends State<LandingTips> {
                                 SavedLocalData savedLocalData = SavedLocalData();
                                 savedLocalData.setTipsViewed(false);
                                 print('in landing');
-                                 checkSocialLogin(context,_acountVm);
+                                checkSocialLogin(context,_acountVm);
+                                //Navigation.puchReplace(const LandingPage(), context);
 
                                 //Navigation.puchReplace(const LoginScreen(), context);
                               }))

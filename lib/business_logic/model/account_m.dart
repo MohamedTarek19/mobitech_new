@@ -1,13 +1,13 @@
 import 'package:mobitech/data_layer/accounts/account.dart';
 
 class AccountM {
-  String? aname;
-  int? id;
-  String? atel;
-  String? aface;
-  String? agoogle;
-  String? pass;
-  String? amail;
+  String? aname; //user name
+  String? ID;// user id
+  String? atel;// user phone
+  String? aface;// user facebook account // social login
+  String? agoogle;// user google account // social login
+  String? pass;// user password
+  String? amail;// user other email
 
   AccountM(
       {this.aname,
@@ -15,7 +15,7 @@ class AccountM {
       this.agoogle,
       this.amail,
       this.atel,
-      this.id,
+      this.ID,
       this.pass});
   factory AccountM.formJson(Map<String, dynamic> json) {
     return AccountM(
@@ -24,18 +24,7 @@ class AccountM {
         amail: json["amail"] as String,
         aname: json["aname"] as String,
         atel: json["atel"] as String?,
-        id: json["id"]  ,
+        ID: json["ID"]  ,
         pass: json["pass"] as String);
-  }
-  Map toJson() {
-    return {
-      "aname": aname as String,
-      "amail": amail as String,
-      "atel": atel as String,
-      "agoogle": agoogle as String,
-      "aface": aface as String,
-      "id":"0",
-      "pass": pass as String
-    };
   }
 }

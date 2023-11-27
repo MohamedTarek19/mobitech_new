@@ -1,6 +1,6 @@
  import 'package:flutter/material.dart';
  
- AppBar CustomAbbBar( String title,BuildContext context) 
+ AppBar CustomAppBar( String title,BuildContext context)
 
   {
     

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:mobitech/business_logic/view_model/work_orders_vm.dart';
 import 'package:mobitech/view/landing_page.dart';
-import 'package:mobitech/view/notify/status_updater.dart';
+
 import 'package:mobitech/view/test_api/fetch_api_view.dart';
 import 'package:provider/provider.dart';
 import 'package:mobitech/utils/navigation.dart';
@@ -24,7 +23,6 @@ class _FaceloginState extends State<Facelogin> {
   bool _isLoggedIn = false;
   Map _userObj = {};
   var sharedPreferences = SharedPreferences.getInstance();
-  var service = FlutterBackgroundService();
 
 
   _logOut() {
@@ -42,18 +40,13 @@ class _FaceloginState extends State<Facelogin> {
 
   _handleRemeberme(String email, String userName) async {
     var _prefs = await sharedPreferences;
-    print(
-        '#####################[check]###############################\n$_isChecked');
     print('#####################[Local data]###############################\n');
-    await _prefs.setBool("remember_me", _isChecked);
     await _prefs.setString('email', email);
     await _prefs.setString('user', userName);
     await _prefs.setString("account_type", "facebook");
 
-    print(
-        'email: ${_prefs.getString('email')}\n name: ${_prefs.getString('user')}\n is checked: ${_prefs.getBool('remember_me')}');
-    print(
-        '#####################[end Local data]###############################\n');
+    print('email: ${_prefs.getString('email')}\n name: ${_prefs.getString('user')}\n}');
+    print('#####################[end Local data]###############################\n');
     await _prefs.reload();
   }
 
@@ -65,8 +58,6 @@ class _FaceloginState extends State<Facelogin> {
       _prefs.remove('account_type');
       _prefs.setBool("remember_me", _isChecked);
     });
-    print(
-        '##################[pref data]#####################\naccount_type = ${_prefs.getBool('remember_me') ?? " not found"}');
   }
 
   @override
@@ -89,17 +80,15 @@ class _FaceloginState extends State<Facelogin> {
                   await _logOut();
                   FacebookAuth.instance.login(
                       permissions: ["public_profile", "email"]).then((value) {
-                    FacebookAuth.instance.getUserData().then((userData) {
-                      setState(() async {
+                    FacebookAuth.instance.getUserData().then((userData) async {
                         _userObj = userData;
                         print(_userObj['email']);
                         try {
-
                           _forget();
                           var _prefs = await sharedPreferences;
                           await _prefs.clear();
                           await _prefs.reload();
-                          var userM = await _acountVm.login('${_userObj["name"]} f');
+                          var userM = await _acountVm.login('${_userObj["email"]}');
                           print('##########################################################');
                           print("done");
                           print('##########################################################');
@@ -107,31 +96,29 @@ class _FaceloginState extends State<Facelogin> {
                             var statusCode = await _acountVm.CreateAccount(AccountM(
                                 amail: _userObj["email"].toString(),
                                 pass: '',
-                                aname: '${_userObj["name"]} f',
+                                aname: '${_userObj["name"]}',
                                 atel: '',
-                                id: 0, aface: _userObj["email"].toString(),
+                                aface: _userObj["email"].toString(),
                                 agoogle: ''));
-                            userM = await _acountVm.login('${_userObj["name"]} f');
+                            userM = await _acountVm.login('${_userObj["email"]}');
                           }
-                          await _prefs.setString("Userid", userM?.id.toString()??'');
+                          await _prefs.setString("Userid", userM?.ID.toString()??'');
                           print("from facebook user id = "+_prefs.getString("Userid").toString());
-                          StatusUtils.inLanding = true;
 
-                          await StatusUtils.SaveStatusList(_workorders_vm, _prefs);
-                          await _handleRemeberme(_userObj['email'], _userObj["name"] + ' f');
-                          service.startService();
-                          Navigation.puchReplace(const LandingPage(), context);
+                          await _handleRemeberme(_userObj['email'], _userObj["name"]);
+                          Navigator.popUntil(context, (route) => false);
+                          Navigation.puchNav(const LandingPage(), context);
                         } catch (err) {
                           print(err);
                           ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
+                              .showSnackBar(SnackBar(
                                   content: Text(
-                            "Something err",
+                            "$err",
                           )));
                         }
 
                         _isLoggedIn = true;
-                      });
+
                     });
                   });
                 },

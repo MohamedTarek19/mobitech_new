@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
+import 'package:mobitech/business_logic/model/maintenance_m.dart';
+import 'package:mobitech/business_logic/model/maintenance_request_m.dart';
 import 'package:mobitech/business_logic/view_model/account_vm.dart';
-import 'package:mobitech/business_logic/view_model/categories_vm.dart';
+import 'package:mobitech/data_layer/maintenance/maintenance.dart';
+import 'package:mobitech/data_layer/maintenance_request/maintenance_request.dart';
 import 'package:mobitech/utils/navigation.dart';
 import 'package:mobitech/view/accounts/login.dart';
 import 'package:mobitech/view/home/home.dart';
-import 'package:mobitech/view/maintance/maintain_form/in_home_form/service_type.dart';
-import 'package:mobitech/view/maintance/maintain_form/mobile_form/mobile_form.dart';
-import 'package:mobitech/view/maintance/maintain_form/mobile_form/mobileCategory.dart';
-import 'package:mobitech/view/maintance/maintain_form/regions.dart';
 import 'package:mobitech/view/maintance/mhelper.dart';
-import 'package:mobitech/view/notify/notification_page.dart';
-import 'package:mobitech/view/tips/landing_tips.dart';
-import 'package:mobitech/widgets/cuttom_appbar.dart';
 import 'package:mobitech/widgets/main_container.dart';
 import 'package:mobitech/widgets/text_button.dart';
 import 'package:provider/provider.dart';
-import 'package:mobitech/view/accounts/logingoogle.dart';
-import 'package:mobitech/view/accounts/google_signin_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../theme/appthrmr.dart';
 
@@ -41,7 +34,6 @@ class _LandingPageState extends State<LandingPage> {
     socialName = await _prefs.getString('user');
     print("##############[Social Name]###############\n${socialName}\n###########################################");
     try{
-      socialName = socialName!.replaceRange(socialName!.length - 2, socialName!.length, '');
       print("##############[Social Name]###############\n${socialName}\n###########################################");
       //notifyListeners();
     }catch(err){
@@ -93,7 +85,6 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var account_vm = Provider.of<AccountVM>(context);
-    var service = FlutterBackgroundService();
 
     return Drawer(
       width: AppTheme.dynamicW(context) * .70,
@@ -112,13 +103,10 @@ class AppDrawer extends StatelessWidget {
               var _prefs =await sharedPreferences;
 
               if (account_vm.userDetails == null) {
-                service.invoke("stopService");
-
                 await _prefs.clear();
 
                 Navigation.puchReplace(const LoginScreen(), context);
               } else {
-                service.invoke("stopService");
                 //  Navigation.puchNav(const LoginScreen(), context);
                 account_vm.removeLocalData("userName");
               }
@@ -131,8 +119,31 @@ class AppDrawer extends StatelessWidget {
           height: 3,
           padding: AppTheme.marginall,
         ),
-        TextBtn(text: "Notifications", action: (){
-          Navigation.puchNav(const ServiceType(), context);
+        TextBtn(text: "Notifications", action: () async {
+          print('dsaadsa');
+          // MaintenanceRequestRep maint = MaintenanceRequestRep();
+          // MaintenanceRequestM m = MaintenanceRequestM(
+          //     area: '1',
+          //     location: '1',
+          //     coordinates: '1',
+          //     phone: '1',
+          //     name:  '1',
+          //     preferredtime: '1',
+          //     problemdescription: '1',
+          //     maintenancetype: '1',
+          //   buildingtype: '1',
+          //   deffict: '1',
+          //   devicecategory: '1',
+          //   factory: '1',
+          //   inhomecategory:'1' ,
+          //   model:'1' ,
+          //   os: '1',
+          //   photourl: '1',
+          //   servicetype: '1',
+          // );
+          // await maint.createRequest(m);
+
+          //await rep.CreateTest();
 
         }),
         Container(

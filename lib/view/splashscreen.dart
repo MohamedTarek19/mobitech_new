@@ -25,11 +25,11 @@ class SplachScreen extends StatelessWidget {
 
     String user = await _prefs.getString('user')?? '0';
     print(user);
-    var userM = await _acountVm.login(user);
     String email = await _prefs.getString('email')?? '';
     print(email);
     String acctype =await _prefs.getString('account_type')??'';
     print(acctype);
+    var userM = await _acountVm.login(email);
     if(userM != null && user != '0'){
       if(email == userM.agoogle || email == userM.aface){
         print('#########################################\nlanding');
@@ -53,7 +53,7 @@ class SplachScreen extends StatelessWidget {
         MHelper.isInMaintenance = false;
         Navigation.puchReplace(const LandingTips(), context);
         //Navigation.puchReplace(const LoginScreen(), context);
-        //print('in landing');
+        print('in landing');
         //checkSocialLogin(context,_acountVm);
 
       }

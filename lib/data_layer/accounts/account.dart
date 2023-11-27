@@ -6,37 +6,72 @@ import 'dart:io';
 import 'package:mobitech/business_logic/model/account_m.dart';
 
 class AccountRep {
-  Future<Object> CreateAccount(AccountM accoutM) async {
-    try {
-      var url = Uri.parse(Apis.baseUrl + Apis.accountmes);
+  Future<Map<String,dynamic>?> createAccount(AccountM user) async{
+    final request = {'query': """
+    mutation MyMutation {
+  createAccountSocial(
+    aface: "${user.aface}"
+    agoogle: "${user.agoogle}"
+    amail: "${user.amail}"
+    aname: "${user.aname}"
+    atel: "${user.atel}"
+    pass: "${user.pass}"
+  ) {
+    ID
+    aface
+    agoogle
+    amail
+    aname
+    atel
+    pass
+  }
+}
+    """};
+    final response = await http.post(Uri.parse(Apis.baseUrl),
+      headers: {"Content-Type": "Application/json"},
+      body: jsonEncode(request),
+    );
+    if(response.statusCode == 200){
+      print(response.body);
+      var res = jsonDecode(utf8.decode(response.bodyBytes))['data']['createAccountSocial'] as Map<String, dynamic>;
 
-      var response = await http.post(url,
-          body: accoutM.toJson(), headers: {'Accept': 'application/json'});
-      if (response.statusCode == 20) {
-        return response.statusCode;
-      }
-      return 404;
-    } on Exception catch (err) {
-      print(err.toString());
-      throw Exception(err);
+      print(res);
+      return res;
+      // print(res['id'].runtimeType);
     }
   }
 
-  Future<AccountM?> login(String username) async {
+  Future<AccountM?> login(String email) async {
     try {
-      var url = Uri.parse("${Apis.baseUrl}${Apis.accountmes}/$username");
+      final request = {
+        'query': '''
+          query MyQuery {
+  findAccountSocialByEmail(email: "$email") {
+    ID
+    aface
+    agoogle
+    amail
+    aname
+    atel
+    pass
+  }
+}
+        '''
+      };
 
-      var response =
-          await http.get(url, headers: {'Accept': 'application/json'});
-      if (response.statusCode == 200) {
-        var res = jsonDecode(response.body) as Map<String, dynamic>;
+      final response = await http.post(Uri.parse(Apis.baseUrl),
+        headers: {"Content-Type": "Application/json"},
+        body: jsonEncode(request),
+      );
+
+      if(response.statusCode == 200){
+        var res = jsonDecode(utf8.decode(response.bodyBytes))['data']['findAccountSocialByEmail'] as Map<String, dynamic>;
+        print(res['ID']);
+        print(res['aname']);
         return AccountM.formJson(res);
       }
-
-      return null;
-    } on Exception catch (err) {
-      print(err.toString());
-      throw Exception(err);
+    }catch(e){
+      print(e.toString());
     }
   }
 }

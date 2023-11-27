@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
+
 import 'package:mobitech/business_logic/usecase/validation.dart';
 import 'package:mobitech/theme/appthrmr.dart';
 import 'package:mobitech/utils/navigation.dart';
@@ -19,7 +19,7 @@ import 'package:mobitech/widgets/text_button.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../business_logic/view_model/account_vm.dart';
-import 'package:mobitech/view/accounts/test_login_google.dart';
+import 'package:mobitech/view/accounts/google_login.dart';
 
 
 
@@ -37,17 +37,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
   _forget()async{
-    setState(()async {
       var _prefs =await sharedPreferences;
       await _prefs.remove('email');
       await _prefs.remove('user');
       await _prefs.remove('id');
       await _prefs.remove('account_type');
       print('##################[pref data]#####################\naccount_type = ${await _prefs.getBool('remember_me') ?? " not found"}');
-    });
+
 
   }
-  TextEditingController userName = TextEditingController();
+  TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   var formK = GlobalKey<FormState>();
 
@@ -58,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
 //########################################################
   @override
   Widget build(BuildContext context) {
-    var service = FlutterBackgroundService();
+
     final _acountVm = Provider.of<AccountVM>(context, listen: false);
     _forget();
     return MainContainer(
@@ -81,10 +80,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 50,
               ),
               CustomFormField(
-                
-                controller: userName,
+                controller: email,
                 iconData: Icons.person,
-                hint: "اسم االمستخدم",
+                hint: "الإيميل",
                 errorMessage: "In Valid Input",
               ),
               PasswordTextField(
@@ -98,7 +96,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   action: () async {
 
                     if (formK.currentState!.validate()) {
-                      var userM = await _acountVm.login(userName.text);
+                      var userM = await _acountVm.login(email.text);
+                      print('in login : ${userM?.amail}, ${userM?.pass},');
 
                       if (userM != null && userM.pass == password.text) {
                         if (!mounted) {
@@ -126,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 ],
               ),
-
+//adslkkngkassddkdmfnl
               ///Social Login
               const SizedBox(
                 height: 30,
@@ -148,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 print("######################################################################################");
                                 MHelper.isInEmp = false;
                                 //Navigation.puchReplace(const SignInDemo(), context);
-                                Navigation.puchReplace(Login_page(), context);
+                                Navigation.puchReplace(GoogleLogin(), context);
                               }
                             ),
                             const SizedBox(

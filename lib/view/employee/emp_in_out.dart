@@ -19,7 +19,7 @@ class EmpCheckOutIn extends StatelessWidget {
 
 
     return MainContainer(widget: Scaffold(
-      appBar:  CustomAbbBar("الحضور والانصراف", context),
+      appBar:  CustomAppBar("الحضور والانصراف", context),
       body:  SingleChildScrollView(
         child: Column(mainAxisAlignment: MainAxisAlignment.center,
         

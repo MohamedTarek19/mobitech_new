@@ -56,7 +56,7 @@ String? dorpbtnv;
     final formK = GlobalKey<FormState>();
     return MainContainer(
         widget: Scaffold(
-      appBar: CustomAbbBar("طلب وظيفة", context),
+      appBar: CustomAppBar("طلب وظيفة", context),
       body: Form(
         key: formK,
         child: SingleChildScrollView(

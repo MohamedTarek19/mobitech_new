@@ -20,7 +20,7 @@ class LostSearchResult extends StatelessWidget {
 
     return MainContainer(
       widget: Scaffold(
-        appBar: CustomAbbBar("نتا~ج البحث", context),
+        appBar: CustomAppBar("نتا~ج البحث", context),
         body: SingleChildScrollView(
           child: Column(
             children: [
